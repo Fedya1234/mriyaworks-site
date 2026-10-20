@@ -1,6 +1,6 @@
 // Site-wide settings. Change the contact address here only.
 const SITE = {
-  email: "danylovfedir@gmail.com",
+  email: "fedir@mriyaworks.com",
   linkedin: "https://www.linkedin.com/in/fedir-danylov-abb36a19a/",
 };
 
