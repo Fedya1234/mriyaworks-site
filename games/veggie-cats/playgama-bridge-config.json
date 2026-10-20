@@ -1,0 +1,29 @@
+{
+    "$schema": "https://bridge.playgama.com/v2/stable/schema.json",
+    "advertisement": {
+        "minimumDelayBetweenInterstitial": 90,
+        "initialInterstitialDelay": 60,
+        "interstitial": {
+            "preloadOnStart": "pause",
+            "placementFallback": "pause",
+            "placements": [ { "id": "pause" } ]
+        },
+        "rewarded": {
+            "preloadOnStart": "reward",
+            "placementFallback": "reward",
+            "placements": [ { "id": "reward" } ]
+        },
+        "useBuiltInErrorPopup": true,
+        "backfillId": ""
+    },
+    "payments": [
+        { "id": "com.booblyc.veggiecats.hc1" },
+        { "id": "com.booblyc.veggiecats.hc2" },
+        { "id": "com.booblyc.veggiecats.hc3" },
+        { "id": "com.booblyc.veggiecats.hc4" },
+        { "id": "com.booblyc.veggiecats.hc5" },
+        { "id": "com.booblyc.veggiecats.hc6" }
+    ],
+    "leaderboards": [],
+    "sendAnalyticsEvents": true
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Veggie Cats</title>
+        <link rel="preconnect" href="https://bridge.playgama.com">
+        <link rel="preload" href="Build/Web.wasm.unityweb" as="fetch" type="application/wasm" crossorigin>
+        <link rel="preload" href="Build/Web.data.unityweb" as="fetch" crossorigin>
+        <link rel="preload" href="Build/Web.framework.js.unityweb" as="script">
+        <!--
+            Playgama Bridge template (com.playgama.bridge), changed for Veggie Cats:
+            the canvas fills the whole window in any orientation (desktop landscape included —
+            the UI was re-laid out for wide screens, Canvas.prefab matches height).
+            playgama-bridge-unity.js is the package's file with one local change (devicePixelRatio
+            capped at 2, search "Veggie Cats") — keep it when refreshing the file with the package.
+        -->
+        <style>
+            html, body {
+                width: 100%;
+                height: 100%;
+                padding: 0px;
+                margin: 0px;
+                overflow: hidden;
+                background: #1f2a1c;
+            }
+            .fullscreen-canvas {
+                background: #1f2a1c;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+                outline: none;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="canvas" class="fullscreen-canvas" tabindex="-1"></canvas>
+        <script src="./playgama-bridge-unity.js"></script>
+    </body>
+</html>
