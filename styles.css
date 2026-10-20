@@ -274,3 +274,6 @@ footer a:hover { color: var(--text); }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
 }
+.team4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1000px) { .team4 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .team4 { grid-template-columns: 1fr; } }
