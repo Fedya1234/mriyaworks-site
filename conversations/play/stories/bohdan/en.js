@@ -1,0 +1,233 @@
+"use strict";
+/* ---------- 5. Two in the Morning ---------- */
+Amedi.stories.register("en","bohdan", {
+  em:"🌑", title:"Two in the Morning", who:"Bohdan", diff:"the conversation remembers",
+  desc:"A childhood friend calls in the middle of the night from Kyiv and says wild, unfair things. Behind every word is something else. The call lasts as long as he can hold on, and the sharp words stay forever.",
+  storageKey:"bohdan_endings",
+  hidden:true,
+  endOrder:["callback","polite","hangup","blowup"],
+  cast:[{ key:"b", name:"Bohdan", faces:[[76,"😤"],[56,"😒"],[38,"😐"],[20,"😔"],[0,"🥺"]] }],
+  start:{ w:{b:55}, contact:5 },
+  extra:{ pat:3 },
+  intro:`Bali, 6:47 AM — Kyiv, 2:47 AM. A call pulls you out of sleep. Bohdan. A childhood friend: same school, same courtyard, one guitar shared in ninth grade. You haven't really talked in eight months — just likes under photos. You pick up and know two things from his voice right away: he hasn't slept, and he's not sober.<br><br><i>This conversation has no meters and no set number of moves. It will last exactly as long as Bohdan can hold on.</i>`,
+  nodes:{
+    n1:{
+      target:"b",
+      npc:()=>`Sleeping? Sleep then, sleep. Must be morning over there, sunshine, coconuts... I just called to say you settled in nicely. Well done. Seriously, well done.`,
+      options:[
+        { icon:"🩺", tag:"Diagnosis", cls:"bad", d:{b:+14}, dc:0, res:{pat:-1},
+          text:`Bohdan, it's six in the morning here. Are you drunk?`,
+          beat:{ b:`fell silent for a moment. Then laughed — not a happy laugh.` },
+          react:()=>`Drunk. Yeah. That's the main question, right?`,
+          coach:`"Are you drunk?" is a diagnosis, not a question. You named his state to dismiss whatever comes next. That's exactly what he heard.` },
+        { icon:"⚖️", tag:"Suffering contest", cls:"bad", d:{b:+18}, dc:0, res:{pat:-1},
+          scar:`You started measuring who has it harder.`,
+          text:`I understand it's hard for you. But I'm not lying on a beach either — I work ten hours a day.`,
+          beat:{ b:`exhaled into the phone.` },
+          react:()=>`I never said you were lying around. I said — well done.`,
+          coach:`"I understand, but" is a polite objection. And comparing who has it worse is a contest nobody wins.` },
+        { icon:"👂", tag:"Hear the call", cls:"good", d:{b:-16}, dc:+15, set:{heard1:true},
+          text:`You're up at three in the morning and called me specifically. Coconuts have nothing to do with it. What happened, Bohdan?`,
+          beat:{ b:`stays silent a long time. You can hear him pacing the room.` },
+          react:()=>`...Nothing happened. It's all fine.`,
+          coach:`You didn't bite the bait ("coconuts"), but named a fact — three AM, a call specifically to you — and asked directly. This is giraffe ears.` },
+        { icon:"😔", tag:"Guilt", cls:"meh", d:{b:+6}, dc:0, fake:1, res:{pat:-1},
+          text:`Listen, I'm sorry I left. I really do feel ashamed.`,
+          beat:{ b:`clicked his lighter, irritated.` },
+          react:()=>`Ashamed. Am I your confessor now? I don't need your shame.`,
+          coach:`Guilt is also about you, not him. Now he has to nurse your feelings instead of his own.` },
+      ],
+      next:s=> s.f.heard1 ? "n2warm" : "n2cold"
+    },
+
+    n2cold:{
+      target:"b",
+      npc:()=>`Nothing happened! Everything's fine here, we're used to it! You're the ones mourning us in your stories, and we're just living here! We have a life, understand? Coffee, work, anxiety, coffee!`,
+      options:[
+        { icon:"🚧", tag:"Too-early boundary", cls:"meh", d:{b:+8}, dc:0, res:{pat:-1},
+          text:`Bohdan, please don't yell at me.`,
+          beat:{ b:`went quiet. Too quiet, too fast.` },
+          react:()=>`Not yelling. Fine, not yelling.`,
+          coach:`A boundary is useful — but set it when he's hitting you. Right now he's not attacking — he's in pain, and yelling is the only channel available to him.` },
+        { icon:"👂", tag:"Stay close", cls:"good", d:{b:-18}, dc:+18, set:{heard1:true},
+          text:`I hear you. You're living. And meanwhile you're calling a friend on the other side of the planet at three in the morning. I'm not going anywhere, Bohdan.`,
+          beat:{ b:`a long pause. Very long.` },
+          react:()=>`...Yeah. Calling.`,
+          coach:`You didn't argue with the form ("don't yell") or the content ("you're living") — you just stayed close and gave him time. Presence is an answer too.` },
+        { icon:"🤷", tag:"Helplessness", cls:"bad", d:{b:+14}, dc:0, res:{pat:-1},
+          text:`Well, what am I supposed to do? I can't help from here anyway.`,
+          beat:{ b:`snorted.` },
+          react:()=>`Nothing. You don't have to do anything. Forget it.`,
+          coach:`"What am I supposed to do" turns this into a task. He didn't ask for a task — he asked for someone to be present.` },
+        { icon:"🔥", tag:"I've got my own problems", cls:"bad", d:{b:+22}, dc:0, res:{pat:-1}, aggro:1,
+          scar:`You brought up your own problems that same night.`,
+          text:`You know, I'm not living in a fairy tale either. I've got plenty of my own problems, believe me.`,
+          beat:{ b:`laughed short and bitter.` },
+          react:()=>`Problems. Yeah. Everyone's got problems. Sorry to bother you.`,
+          coach:`Technically true. But said at this exact second it means "yours can wait." Words like that don't get forgotten.` },
+      ],
+      next:s=> s.f.heard1 ? "n3grief" : "n3accuse"
+    },
+
+    n2warm:{
+      target:"b",
+      npc:()=>`...Nothing. It's all fine. (pause) They buried Siryi yesterday. We sat at the same desk in seventh grade. You remember Siryi.`,
+      options:[
+        { icon:"🕯", tag:"Presence", cls:"good", d:{b:-20}, dc:+22, set:{griefHeard:true},
+          text:`I remember. He was always last in gym class and always laughed about it... Bohdan, I'm here. Tell me about him.`,
+          beat:{ b:`quietly: "Yeah. Always last." Then a long silence.` },
+          react:()=>`He never gave up the guitar, you know that? Wrote his own stuff. Used to send me voice memos with the choruses.`,
+          coach:`You remembered the living Siryi, not just "condolences." And you asked him to tell you more. Grief doesn't need solutions — it needs a witness.` },
+        { icon:"🧠", tag:"Solution", cls:"bad", d:{b:+12}, dc:0, fake:1, res:{pat:-1},
+          text:`Bohdan, you need a therapist. Seriously. I can pay, I know a good one.`,
+          beat:{ b:`a pause. A completely different kind than before.` },
+          react:()=>`A therapist. Right. Fine, I'll think about it.`,
+          coach:`He told you about his dead friend — and got a service offer instead. A solution instead of presence pushes a person to the distance of a client.` },
+        { icon:"🤍", tag:"Honest 'I don't know'", cls:"good", d:{b:-8}, dc:+10,
+          text:`God. Bohdan, I don't know what you're supposed to say to this. I'm just... here, I'm not going anywhere.`,
+          beat:{ b:`exhaled.` },
+          react:()=>`There's nothing to say to it. No words for it.`,
+          coach:`An honest "I don't know what to say" beats a rehearsed formula. It doesn't save the conversation, but it doesn't close it either — and that's already a lot.` },
+        { icon:"📿", tag:"Formula", cls:"bad", d:{b:+10}, dc:0, res:{pat:-1},
+          text:`I'm so sorry. That's awful. Hang in there, brother.`,
+          beat:{ b:`"Yeah."` },
+          react:()=>`Yeah. Hanging in there. Everyone's hanging in there.`,
+          coach:`"Hang in there" is a phrase that ends a conversation, not starts one. He heard the door closing.` },
+      ],
+      next:s=> s.f.griefHeard ? "n3grief" : "n3accuse"
+    },
+
+    n3grief:{
+      target:"b",
+      npc:()=>`(quiet) He didn't even want to go there, you know? He wasn't even about that stuff. And then he went — and that's it. And I'm here, walking around, alive, drinking coffee. Like some kind of asshole.`,
+      options:[
+        { icon:"💙", tag:"Name the guilt", cls:"good", d:{b:-20}, dc:+22, set:{guiltHeard:true},
+          text:`You feel ashamed to be alive. And probably scared — because it could have been you. Bohdan, that doesn't make you an asshole. It makes you a person who's in a lot of pain.`,
+          beat:{ b:`doesn't answer. You can hear him breathing.` },
+          react:()=>`...I've never told anyone that, you know. Nobody at all. My wife's asleep in the next room, and I'm saying this to you on Bali.`,
+          coach:`Survivor's guilt is the quietest, heaviest feeling there is. Named out loud by someone else, it stops being shameful.` },
+        { icon:"👍", tag:"Deny it", cls:"bad", d:{b:+10}, dc:0, res:{pat:-1},
+          text:`Don't say that. You do a lot too, I can see it — donations, volunteering.`,
+          beat:{ b:`"Yeah, I do, I do."` },
+          react:()=>`That's not the same thing, and you know it.`,
+          coach:`You started arguing with his feeling using evidence. Feelings aren't disproven by facts — they just hide deeper.` },
+        { icon:"🤍", tag:"Silent presence", cls:"good", d:{b:-10}, dc:+12,
+          text:`(silent for a few seconds) I'm here, Bohdan.`,
+          beat:{ b:`stays silent along with you for a long time. It's the first silence all call that doesn't feel uncomfortable.` },
+          react:()=>`...Yeah. Thanks.`,
+          coach:`Sometimes the best line isn't a line at all. Silence you don't run from works stronger than any formula.` },
+        { icon:"🧊", tag:"Logic", cls:"bad", d:{b:+16}, dc:0, res:{pat:-1},
+          scar:`You called his feeling illogical.`,
+          text:`Well, it's not your fault you're alive. That's not logical, admit it.`,
+          beat:{ b:`"Not logical. Sure."` },
+          react:()=>`Forget it. Forget I said anything.`,
+          coach:`"That's not logical" is the fastest way to shut someone down. He just gave you his most vulnerable moment, and got a judgment back.` },
+      ],
+      next:"n4soft"
+    },
+
+    n3accuse:{
+      target:"b",
+      npc:()=>`(sharp) You know what people say about you here? That you ran. That you abandoned all of us and you're sitting on your Bali, and you're fine with it.`,
+      options:[
+        { icon:"🧾", tag:"Donation receipt", cls:"bad", d:{b:+20}, dc:0, res:{pat:-1},
+          scar:`You handed your friend a receipt for your donations.`,
+          text:`I donate every month. I pay taxes. Maybe I've done more than half the people who stayed and are talking about me.`,
+          beat:{ b:`"Sure. Sure."` },
+          react:()=>`I wasn't counting your donations. That's not even what I'm talking about.`,
+          coach:`Justifying with receipts is an attempt to win a trial that doesn't exist. He's not a prosecutor. He's a friend in pain.` },
+        { icon:"🔥", tag:"Counterstrike", cls:"bad", d:{b:+25}, dc:0, aggro:1, res:{pat:-1},
+          scar:`You struck back at the people who stayed.`,
+          text:`And the ones who "didn't run" — are they all at the front? Or sitting in cafes talking about the people who left?`,
+          beat:{ b:`silence. A very bad silence.` },
+          react:()=>`I see. So you know exactly who's sitting where.`,
+          coach:`A mirrored strike. Now you're both defending yourselves, and neither of you will hear what he actually came here with.` },
+        { icon:"🦒", tag:"Boundary + translation", cls:"good", d:{b:-22}, dc:+25, set:{translated:true},
+          text:`People say — or you say? ...Bohdan, I won't justify where I live. But I hear something else: you're missing having your own people close by. And that's really true. That part, I'm guilty of.`,
+          beat:{ b:`a long pause. Then, in a completely different voice: "Damn."` },
+          react:()=>`...I didn't mean to say it like that. It's just... you're really not here. None of us are here. Who do I even talk to about Siryi — my coworkers?`,
+          coach:`Two things at once: a boundary ("I won't justify where I live") and a translation of the wild into the human ("I'm missing my people nearby"). To hear someone, you don't have to agree with them.` },
+        { icon:"🤍", tag:"Don't leave the call", cls:"good", d:{b:-10}, dc:+12,
+          text:`Yeah, I left. And honestly — sometimes I don't even know how to live with that myself. But I'm here right now, on the phone, and I'm not going anywhere.`,
+          beat:{ b:`"Well, at least that."` },
+          react:()=>`Fine. Forget it. Wasn't even about you, really.`,
+          coach:`Not a justification, not a surrender — just honesty and presence. Weaker than the translation, but it leaves the door open.` },
+      ],
+      next:"n4soft"
+    },
+
+    n4soft:{
+      target:"b",
+      npc:s=> s.f.guiltHeard || s.f.translated
+        ? `(quiet) So what now? You're not coming, are you. I get it, I'm not stupid. Just asking.`
+        : `Fine. So what now? You're not coming, are you. Nothing for you to do here anyway.`,
+      options:[
+        { icon:"✈️", tag:"Date and ticket", cls:"good", d:{b:-14}, dc:+22, set:{plan:true},
+          text:`I'm coming. Not "someday" — in November, for two weeks. I'll book the ticket this week and send you a screenshot so you know it's not just talk. And until then: Saturday, nine PM Kyiv time. Every week. You pick up, even if there's nothing to say.`,
+          beat:{ b:`"Send the screenshot, sure."` },
+          react:s=> s.contact>=55 ? `...Okay. In November it'll be a year since Siryi in December, so... well, you know. Come.` : `We'll see. You promised before too.`,
+          coach:`A date, an action, proof, and a regular ritual. A promise you can check is the only kind of promise that builds trust.` },
+        { icon:"📞", tag:"Honest and small", cls:"good", d:{b:-12}, dc:+18, set:{plan:true},
+          text:`I won't promise to come — I don't know when I'll be able to, and I don't want to lie to you. But I can call every Saturday. And I will, even if you don't pick up.`,
+          beat:{ b:`"Every Saturday. Wow, look at you."` },
+          react:s=> s.contact>=55 ? `...Deal. I'll pick up.` : `Yeah. We'll see.`,
+          coach:`A small promise you'll definitely keep is worth more than a big one you don't believe yourself. Honesty about your limits is respect too.` },
+        { icon:"🚪", tag:"An open door, no time", cls:"meh", d:{b:+4}, dc:+3, fake:1,
+          text:`Listen, I'm always reachable. Write anytime, I'll always answer.`,
+          beat:{ b:`"Yeah. Thanks."` },
+          react:()=>`Okay. I'll write.`,
+          coach:`"Write anytime" is a door a person in this state won't knock on. An invitation with no time attached equals a polite refusal.` },
+        { icon:"😴", tag:"Postpone", cls:"bad", d:{b:+14}, dc:0, res:{pat:-1},
+          text:`I don't know, Bohdan. Let's not do this now — sleep it off, and we'll talk with clear heads.`,
+          beat:{ b:`"Clear heads. Sure."` },
+          react:()=>`Yeah. Go to sleep then. It's morning over there.`,
+          coach:`He called you at three in the morning precisely because he wouldn't dare during the day. "We'll talk later" means "we won't talk."` },
+      ],
+      next:s=> (s.contact>=60 && s.scars.length===0 && s.f.plan) ? "n5you" : null
+    },
+
+    n5you:{
+      target:"b",
+      npc:()=>`(pause) Listen... how are you, actually? Really, how are you? Because I've been talking for an hour now and you've just been listening.`,
+      options:[
+        { icon:"🗣", tag:"Answer for real", cls:"good", d:{b:-10}, dc:+20,
+          text:`Honestly? Good and awful at the same time. There's the sea here and work I love. And every morning I read the news before I even get out of bed, and sit with it alone — because there's nobody here to talk to about it. You're the first person in a year I've talked to about this.`,
+          beat:{ b:`quietly: "See, and you say 'coconuts.'"` },
+          react:()=>`...Huh. And here I thought it was easy for you over there. Idiot.`,
+          coach:`He asked about you for the first time — that's the friendship coming back. Answering for real means letting him back in.` },
+        { icon:"🙅", tag:"Wave it off", cls:"bad", d:{b:+8}, dc:-8,
+          text:`It's all fine. Not about me right now.`,
+          beat:{ b:`"Got it."` },
+          react:()=>`Got it. Well, okay. I'll probably head off.`,
+          coach:`He opened up and asked in return — and you left him alone in that vulnerability. Now he's the one who owes, and you're "the one who has it all fine" again.` },
+        { icon:"🤍", tag:"Short and honest", cls:"good", d:{b:-6}, dc:+10,
+          text:`Good. And ashamed that it's good. But good.`,
+          beat:{ b:`"Don't be ashamed. Let someone at least have it good."` },
+          react:()=>`Don't be ashamed, you hear me. Let somebody have it normal.`,
+          coach:`Short, honest, no self-flagellation. He doesn't need you to feel bad — he needs you to be real.` },
+      ],
+      next:()=>null
+    }
+  },
+  checkFail:s=>{
+    if(s.pat<=0) return "hangup";
+    if(s.w.b>=88 || s.aggro>=2) return "blowup";
+    return null;
+  },
+  resolve:(s)=>{
+    if(s.contact>=55 && s.scars.length===0 && s.f.plan) return "callback";
+    if(s.contact>=30) return "polite";
+    return "hangup";
+  },
+  endings:{
+    hangup:{ emoji:"🌑", title:"\"Alright, sleep\"", cls:"bad",
+      text:`"Alright. Go to sleep. It's morning there." And the dial tone — before you can even add anything.<br><br>You lie there with the phone on your chest. It's getting light outside, someone's starting a motorbike down below, a rooster decides it's time. Bohdan won't call again for half a year — and when he does, he'll start the same way: "So, how's the coconut life."<br><br>He wasn't offended. He was just testing whether he could tell you this. And he got his answer.` },
+    blowup:{ emoji:"💥", title:"\"Well, screw you then\"", cls:"bad",
+      text:`You're both talking over each other now, neither of you about Siryi or Bali anymore, but about who owes what to whom. Then he says something short and final — and hangs up.<br><br>In the morning you'll write "sorry." He'll leave a like. That will be the worst part of all.` },
+    polite:{ emoji:"🧱", title:"\"Thanks for listening\"", cls:"meh",
+      text:`At the end he says: "Alright, thanks for listening." Polite. The way you'd thank a coworker for a ride.<br><br>The call didn't fall apart, and that's something. But what you said in the night stays between you — and it won't go away, even if no one ever mentions it out loud. Next time, he won't call you.` },
+    callback:{ emoji:"🌅", title:"He'll Call Back", cls:"good",
+      text:`You keep talking for another hour. About Siryi and his unfinished choruses, about the guitar in ninth grade, about the power outages, about that café reopening in Kyiv. He laughs twice — for real.<br><br>At half past four Kyiv time he says: "Alright. Going to try to sleep." And, already hanging up: "I'll call back. A real callback, not like this."<br><br>On Saturday, he'll pick up. You didn't say a single perfectly right thing about the war, didn't prove anything to anyone, didn't justify yourself. You just didn't hang up while he was saying the wild things.` },
+  },
+  debrief:`The core skill of this conversation is <b>translation</b>. "Coconuts, well done" meant "it hurts that you're not here." "You ran" meant "I have no one to talk to about Siryi." Wild words aren't a verdict or information about you; they're the shape pain takes when it comes out. Your job is to hear the need underneath, not argue with the shape.<br><br>What broke the conversation: the suffering contest, the donation receipt, "hang in there," "that's not logical," "we'll talk later." What held it: naming a fact instead of biting the bait, staying in silence, naming survivor's guilt out loud, a boundary with no justification — and a <b>small promise with a date</b> instead of a big one without.<br><br>And two things not present in the earlier stories (v5). <b>Patience</b>: a person at three in the morning can't absorb many misses — the call will simply end. And <b>scars</b>: what's said on a night like this doesn't get undone by later, better words. You can carry the conversation through and still not get the best ending — because he's already heard it.`
+});

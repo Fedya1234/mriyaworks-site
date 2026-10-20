@@ -277,3 +277,20 @@ footer a:hover { color: var(--text); }
 .team4 { grid-template-columns: repeat(4, 1fr); }
 @media (max-width: 1000px) { .team4 { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .team4 { grid-template-columns: 1fr; } }
+
+/* Conversations in Amed (NVC) */
+.service-wide { grid-column: 1 / -1; display: flex; gap: 20px; align-items: flex-start; text-decoration: none; color: inherit; }
+.service-wide .ico { flex: none; margin-bottom: 0; background: rgba(90, 169, 255, .14); }
+.service-wide .go { color: var(--sun); font-weight: 600; white-space: nowrap; }
+.nvc-visual { position: relative; min-height: 440px; padding: 34px 30px 96px; display: flex; flex-direction: column; gap: 12px; background: radial-gradient(120% 90% at 20% 0%, #2a2380 0%, #11173a 55%, #070914 100%); }
+.nvc-state { display: flex; align-items: center; gap: 10px; font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 8px; }
+.nvc-state i { flex: 1; height: 6px; border-radius: 99px; background: rgba(255,255,255,.1); overflow: hidden; }
+.nvc-state b { display: block; height: 100%; background: linear-gradient(90deg, var(--sky), var(--sun)); border-radius: 99px; }
+.bub { max-width: 82%; padding: 11px 15px; border-radius: 18px; font-size: .95rem; line-height: 1.45; }
+.bub.them { background: rgba(255,255,255,.08); border: 1px solid var(--line); border-bottom-left-radius: 6px; }
+.bub.me { align-self: flex-end; border-bottom-right-radius: 6px; }
+.bub.bad { background: rgba(255, 110, 110, .12); color: #ffb4b4; text-decoration: line-through; text-decoration-color: rgba(255,180,180,.5); opacity: .75; }
+.bub.good { background: linear-gradient(135deg, rgba(90,169,255,.25), rgba(155,123,255,.3)); border: 1px solid rgba(155,123,255,.4); }
+.nvc-rewind { align-self: center; font-size: .8rem; color: var(--muted); }
+.nvc-visual .play { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); white-space: nowrap; }
+@media (max-width: 560px) { .service-wide { flex-direction: column; gap: 0; } .service-wide .ico { margin-bottom: 18px; } .nvc-visual { padding: 26px 18px 92px; } }

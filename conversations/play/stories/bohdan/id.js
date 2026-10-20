@@ -1,0 +1,233 @@
+"use strict";
+/* ---------- 5. Telepon Dini Hari ---------- */
+Amedi.stories.register("id","bohdan", {
+  em:"🌑", title:"Telepon Dini Hari", who:"Bohdan", diff:"percakapan yang membekas",
+  desc:"Sahabat masa kecil menelepon tengah malam dari Kyiv dan mengucapkan hal-hal liar dan tak adil. Di balik tiap kata — ada hal lain. Percakapan berlangsung selama dia sanggup bertahan, dan kata-kata kasar akan tinggal selamanya.",
+  storageKey:"bohdan_endings",
+  hidden:true,
+  endOrder:["callback","polite","hangup","blowup"],
+  cast:[{ key:"b", name:"Bohdan", faces:[[76,"😤"],[56,"😒"],[38,"😐"],[20,"😔"],[0,"🥺"]] }],
+  start:{ w:{b:55}, contact:5 },
+  extra:{ pat:3 },
+  intro:`Bali, jam 6:47 pagi — Kyiv, 2:47 dini hari. Telepon menarikmu dari tidur. Bohdan. Sahabat masa kecil: satu sekolah, satu gang, satu gitar berdua di kelas sembilan. Kalian benar-benar sudah tak bicara delapan bulan — cuma saling like di foto. Kamu angkat telepon dan dari suaranya kau tahu dua hal: dia belum tidur dan dia tidak sadar.<br><br><i>Dalam percakapan ini tak ada skala dan tak ada jumlah langkah yang pasti. Berlangsung selama Bohdan sanggup bertahan.</i>`,
+  nodes:{
+    n1:{
+      target:"b",
+      npc:()=>`Tidur ya? Ya udah, tidur aja. Di sana pagi udah datang, matahari, kelapa... Aku cuma mau telepon bilang kau udah mapan banget di sana. Bagus. Serius, bagus.`,
+      options:[
+        { icon:"🩺", tag:"Diagnosis", cls:"bad", d:{b:+14}, dc:0, res:{pat:-1},
+          text:`Bohdan, ini jam enam pagi. Kau mabuk ya?`,
+          beat:{ b:`diam sejenak. Lalu tertawa — tak lucu.` },
+          react:()=>`Mabuk. Ya. Itu yang penting ya kan?`,
+          coach:`"Kau mabuk?" adalah diagnosis, bukan pertanyaan. Kamu menyebut kondisinya untuk meremehkan semua yang akan dia katakan selanjutnya. Dan itulah yang dia dengar.` },
+        { icon:"⚖️", tag:"Adu penderitaan", cls:"bad", d:{b:+18}, dc:0, res:{pat:-1},
+          scar:`Kamu mulai membandingkan siapa yang lebih menderita.`,
+          text:`Aku ngerti ini berat buatmu. Tapi aku juga bukan lagi santai di pantai — aku kerja sepuluh jam sehari.`,
+          beat:{ b:`menghela napas di telepon.` },
+          react:()=>`Aku kan nggak bilang kau santai. Aku bilang — bagus.`,
+          coach:`"Aku ngerti, tapi" adalah penolakan sopan. Dan membandingkan siapa yang lebih berat adalah pertandingan yang tak ada pemenangnya.` },
+        { icon:"👂", tag:"Dengar teleponnya", cls:"good", d:{b:-16}, dc:+15, set:{heard1:true},
+          text:`Kau nggak tidur jam tiga dini hari dan menelepon aku duluan. Kelapa nggak ada hubungannya. Ada apa, Bohdan?`,
+          beat:{ b:`diam lama. Terdengar dia mondar-mandir di kamar.` },
+          react:()=>`...Nggak ada apa-apa. Semua baik-baik saja.`,
+          coach:`Kamu tak terpancing ("kelapa"), tapi menyebut fakta — jam tiga dini hari, telepon justru padamu — dan mengajukan pertanyaan langsung. Inilah "telinga jerapah".` },
+        { icon:"😔", tag:"Rasa bersalah", cls:"meh", d:{b:+6}, dc:0, fake:1, res:{pat:-1},
+          text:`Dengar, maaf aku pergi. Aku beneran malu.`,
+          beat:{ b:`kesal menyalakan korek api.` },
+          react:()=>`Malu katanya. Aku ini pendengar pengakuan dosa buatmu? Nggak perlu rasa malumu.`,
+          coach:`Rasa bersalah juga tentang dirimu, bukan tentang dia. Sekarang dia harus mengurus perasaanmu, bukan perasaannya sendiri.` },
+      ],
+      next:s=> s.f.heard1 ? "n2warm" : "n2cold"
+    },
+
+    n2cold:{
+      target:"b",
+      npc:()=>`Nggak ada apa-apa! Kami baik-baik aja di sini, udah biasa! Kalian di sana cuma nangisin kami di story, sementara kami di sini cuma jalanin hidup! Kami punya hidup, ngerti nggak? Kopi, kerja, cemas, kopi lagi!`,
+      options:[
+        { icon:"🚧", tag:"Batasan terlalu dini", cls:"meh", d:{b:+8}, dc:0, res:{pat:-1},
+          text:`Bohdan, jangan teriak-teriak ke aku, tolong.`,
+          beat:{ b:`diam. Terlalu cepat diamnya.` },
+          react:()=>`Nggak teriak. Ya udah, nggak teriak.`,
+          coach:`Batasan itu perlu, tapi tegakkan saat kamu yang diserang. Sekarang dia tidak menyerang — dia sedang sakit, dan berteriak satu-satunya cara yang dia punya sekarang.` },
+        { icon:"👂", tag:"Tetap di sampingnya", cls:"good", d:{b:-18}, dc:+18, set:{heard1:true},
+          text:`Aku dengar. Kalian menjalani hidup. Dan di saat yang sama kau menelepon sahabat di belahan bumi lain jam tiga dini hari. Aku nggak buru-buru ke mana pun, Bohdan.`,
+          beat:{ b:`jeda panjang. Sangat panjang.` },
+          react:()=>`...Ya. Nelepon.`,
+          coach:`Kamu tak berdebat soal bentuknya ("jangan teriak") maupun isinya ("kalian kan hidup") — kamu tetap di sana dan memberi waktu. Kehadiran juga sebuah jawaban.` },
+        { icon:"🤷", tag:"Ketidakberdayaan", cls:"bad", d:{b:+14}, dc:0, res:{pat:-1},
+          text:`Lalu aku harus ngapain? Dari sini pun aku nggak bisa bantu apa-apa.`,
+          beat:{ b:`terkekeh.` },
+          react:()=>`Ya nggak ada. Nggak ada yang harus. Lupain aja.`,
+          coach:`"Aku harus ngapain" memindahkan percakapan ke tugas. Dia bukan minta tugas — dia minta ada yang menemani.` },
+        { icon:"🔥", tag:"Aku juga punya masalah", cls:"bad", d:{b:+22}, dc:0, res:{pat:-1}, aggro:1,
+          scar:`Kamu bicara soal masalahmu sendiri malam itu.`,
+          text:`Tahu nggak, aku juga bukan hidup di dongeng. Di sini juga banyak masalahku, percaya deh.`,
+          beat:{ b:`tertawa singkat dan sinis.` },
+          react:()=>`Masalah. Ya. Semua orang punya masalah. Maaf udah ganggu.`,
+          coach:`Secara formal itu benar. Tapi diucapkan detik ini artinya: "masalahmu bisa tunggu". Kalimat seperti ini tak akan terlupakan.` },
+      ],
+      next:s=> s.f.heard1 ? "n3grief" : "n3accuse"
+    },
+
+    n2warm:{
+      target:"b",
+      npc:()=>`...Nggak ada apa-apa. Semua baik-baik aja. (jeda) Seryi dikubur kemarin. Dia sekelas denganku kelas tujuh, satu bangku. Kau kan ingat Seryi.`,
+      options:[
+        { icon:"🕯", tag:"Kehadiran", cls:"good", d:{b:-20}, dc:+22, set:{griefHeard:true},
+          text:`Ingat. Dia selalu paling belakang lari waktu olahraga dan selalu ketawa sendiri soal itu... Bohdan, aku di sini. Ceritakan tentang dia.`,
+          beat:{ b:`pelan: "Ya. Paling belakang." Lalu diam lama sekali.` },
+          react:()=>`Dia sebenarnya nggak pernah berhenti main gitar, tahu nggak? Nulis lagunya sendiri. Kirim voice note refrain-refrainnya ke aku.`,
+          coach:`Kamu mengingat Seryi yang masih hidup, bukan sekadar "turut berduka". Dan minta dia bercerita. Duka tak butuh solusi — ia butuh saksi.` },
+        { icon:"🧠", tag:"Solusi", cls:"bad", d:{b:+12}, dc:0, fake:1, res:{pat:-1},
+          text:`Bohdan, kau perlu ke psikolog. Serius. Aku bisa bayarin, aku punya kontak yang bagus.`,
+          beat:{ b:`jeda. Jeda yang beda sama sekali dari sebelumnya.` },
+          react:()=>`Ke psikolog. Oke. Ya, akan kupikirkan.`,
+          coach:`Dia baru saja bercerita soal sahabatnya yang meninggal — dan yang dia dengar malah tawaran jasa. Solusi menggantikan kehadiran menjauhkan orang ke posisi klien.` },
+        { icon:"🤍", tag:"\"Aku nggak tahu\" yang jujur", cls:"good", d:{b:-8}, dc:+10,
+          text:`Ya Tuhan. Bohdan, aku nggak tahu harus bilang apa soal ini. Cuma... aku di sini, aku nggak akan ke mana-mana.`,
+          beat:{ b:`menghela napas.` },
+          react:()=>`Nggak ada yang bisa bilang apa-apa kok. Nggak ada kata untuk itu.`,
+          coach:`"Aku nggak tahu harus bilang apa" yang jujur lebih baik dari rumus yang dihafalkan. Ini tak menyelamatkan percakapan, tapi juga tak menutupnya — dan itu sudah banyak.` },
+        { icon:"📿", tag:"Rumus kosong", cls:"bad", d:{b:+10}, dc:0, res:{pat:-1},
+          text:`Turut berduka. Ini mengerikan. Semangat ya, kawan.`,
+          beat:{ b:`"Ya".` },
+          react:()=>`Ya. Semangat. Semua orang bilang semangat.`,
+          coach:`"Semangat ya" adalah kata untuk mengakhiri percakapan, bukan memulainya. Dia mendengar pintu sedang ditutup.` },
+      ],
+      next:s=> s.f.griefHeard ? "n3grief" : "n3accuse"
+    },
+
+    n3grief:{
+      target:"b",
+      npc:()=>`(pelan) Dia sebenarnya nggak mau ke sana, tahu nggak? Dia sama sekali bukan orangnya buat itu. Terus pergi — dan habis. Sedangkan aku di sini jalan-jalan, minum kopi, hidup. Kayak bajingan aja.`,
+      options:[
+        { icon:"💙", tag:"Menyebut rasa bersalah", cls:"good", d:{b:-20}, dc:+22, set:{guiltHeard:true},
+          text:`Kau malu karena kau masih hidup. Dan mungkin takut — karena bisa saja itu kamu. Bohdan, itu tak membuatmu jadi bajingan. Itu membuatmu jadi manusia yang sangat kesakitan.`,
+          beat:{ b:`tak menjawab. Terdengar napasnya.` },
+          react:()=>`...Aku belum pernah bilang ini ke siapa pun, tahu nggak. Ke siapa pun. Istriku tidur di kamar sebelah, dan aku malah bilang ke kamu di Bali.`,
+          coach:`Rasa bersalah orang yang selamat adalah perasaan paling sunyi dan berat. Diucapkan oleh orang lain, ia berhenti menjadi hal yang memalukan.` },
+        { icon:"👍", tag:"Membantah", cls:"bad", d:{b:+10}, dc:0, res:{pat:-1},
+          text:`Jangan bilang gitu. Kau juga banyak berbuat, aku lihat kok — donasi, jadi relawan.`,
+          beat:{ b:`"Ya, berbuat lah".` },
+          react:()=>`Itu beda, dan kau tahu itu.`,
+          coach:`Kamu mulai berdebat dengan perasaannya menggunakan bukti-bukti. Perasaan tak bisa dibantah dengan fakta — itu justru membuatnya sembunyi lebih dalam.` },
+        { icon:"🤍", tag:"Diam bersama", cls:"good", d:{b:-10}, dc:+12,
+          text:`(diam beberapa detik) Aku di sini, Bohdan.`,
+          beat:{ b:`diam lama bersamamu. Dan ini pertama kalinya sepanjang percakapan, keheningan yang tak canggung.` },
+          react:()=>`...Ya. Makasih.`,
+          coach:`Terkadang jawaban terbaik bukanlah kata-kata. Keheningan tempat kamu tak kabur bekerja lebih kuat dari rumus apa pun.` },
+        { icon:"🧊", tag:"Logika", cls:"bad", d:{b:+16}, dc:0, res:{pat:-1},
+          scar:`Kamu menyebut perasaannya tidak logis.`,
+          text:`Kau kan bukan salahmu masih hidup. Itu nggak logis, setuju kan?`,
+          beat:{ b:`"Nggak logis. Persis".` },
+          react:()=>`Sudahlah, lupain apa yang kubilang tadi.`,
+          coach:`"Ini nggak logis" adalah cara tercepat menutup orang. Dia baru saja memberikan hal paling rentan padanya, dan yang dia dapat malah penilaian.` },
+      ],
+      next:"n4soft"
+    },
+
+    n3accuse:{
+      target:"b",
+      npc:()=>`(tajam) Kau tahu nggak apa yang mereka bilang tentangmu di sini? Kau kabur. Kau tinggalin kami semua dan enak-enakan di Balimu, dan kau baik-baik saja.`,
+      options:[
+        { icon:"🧾", tag:"Tagihan donasi", cls:"bad", d:{b:+20}, dc:0, res:{pat:-1},
+          scar:`Kamu menagih sahabatmu dengan bukti donasimu.`,
+          text:`Aku donasi tiap bulan. Aku bayar pajak. Mungkin aku bahkan berbuat lebih banyak dari separuh orang yang tinggal dan membicarakanku.`,
+          beat:{ b:`"Ya udah. Ya udah".` },
+          react:()=>`Aku kan nggak hitung donasimu. Aku sama sekali nggak bicara soal itu.`,
+          coach:`Membela diri dengan bukti adalah usaha memenangkan pengadilan yang tak ada. Dia bukan jaksa. Dia sahabat yang sedang kesakitan.` },
+        { icon:"🔥", tag:"Serangan balik", cls:"bad", d:{b:+25}, dc:0, aggro:1, res:{pat:-1},
+          scar:`Kamu menyerang balik ke mereka yang tinggal.`,
+          text:`Terus mereka yang "nggak kabur" — mereka semua di garis depan, ya? Atau duduk di kafe membicarakan yang pergi?`,
+          beat:{ b:`hening. Keheningan yang sangat buruk.` },
+          react:()=>`Oke. Berarti kau tahu ya, siapa yang di mana.`,
+          coach:`Pukulan cermin. Sekarang kalian berdua bertahan, dan tak ada yang mendengar apa yang membawa dia ke sini.` },
+        { icon:"🦒", tag:"Batasan + terjemahan", cls:"good", d:{b:-22}, dc:+25, set:{translated:true},
+          text:`Mereka bilang — atau kau yang bilang? ...Bohdan, aku takkan membela diri soal di mana aku tinggal. Tapi aku dengar hal lain: kau kekurangan orang dekatmu di sampingmu. Dan itu memang benar tak ada. Di sinilah aku bersalah.`,
+          beat:{ b:`jeda panjang. Lalu, dengan suara yang berbeda sama sekali: "Sialan".` },
+          react:()=>`...Aku nggak maksud bilang begitu. Cuma... kau beneran nggak ada. Nggak ada satu pun dari kita di sana. Sama siapa aku bicara soal Seryi — sama kolega?`,
+          coach:`Dua hal sekaligus: batasan ("aku takkan membela diri soal lokasiku") dan menerjemahkan yang liar menjadi manusiawi ("aku kekurangan orang dekat"). Untuk mendengar seseorang, tak harus setuju dengannya.` },
+        { icon:"🤍", tag:"Tak meninggalkan percakapan", cls:"good", d:{b:-10}, dc:+12,
+          text:`Ya, aku pergi. Dan jujur — kadang aku sendiri nggak tahu gimana harus hidup dengan itu. Tapi aku ada di telepon sekarang, dan aku nggak akan pergi ke mana pun.`,
+          beat:{ b:`"Ya setidaknya begitu".` },
+          react:()=>`Ya udah. Lewati aja. Bukan soal kau sebenarnya percakapan ini.`,
+          coach:`Bukan membela diri, bukan pula menyerah — cuma kejujuran dan kehadiran. Lebih lemah dari terjemahan, tapi tetap membuka pintu.` },
+      ],
+      next:"n4soft"
+    },
+
+    n4soft:{
+      target:"b",
+      npc:s=> s.f.guiltHeard || s.f.translated
+        ? `(pelan) Terus sekarang gimana? Kau kan nggak akan pulang. Aku ngerti kok, aku bukan orang bodoh. Cuma nanya aja.`
+        : `Ya udah. Terus sekarang gimana? Kau kan nggak akan pulang. Toh nggak ada yang perlu kau lakukan di sini.`,
+      options:[
+        { icon:"✈️", tag:"Tanggal dan tiket", cls:"good", d:{b:-14}, dc:+22, set:{plan:true},
+          text:`Aku akan pulang. Bukan "kapan-kapan" — November, dua minggu. Aku beli tiket minggu ini juga dan kirim screenshot supaya kau nggak kira ini cuma omongan. Dan sebelum itu: Sabtu, jam sembilan malam waktu Kyiv. Tiap minggu. Kau angkat teleponnya, bahkan kalau nggak ada yang mau dibicarain.`,
+          beat:{ b:`"Kirim screenshot ya, hah".` },
+          react:s=> s.contact>=55 ? `...Baiklah. Bulan November, ulang tahun kematian Seryi bulan Desember, jadi... kau ngerti maksudku. Pulanglah.` : `Kita lihat. Kau pernah janji dulu juga.`,
+          coach:`Tanggal, tindakan, bukti, dan ritual rutin. Janji yang bisa diverifikasi — satu-satunya jenis janji yang menambah kepercayaan.` },
+        { icon:"📞", tag:"Jujur dan sedikit", cls:"good", d:{b:-12}, dc:+18, set:{plan:true},
+          text:`Aku nggak akan janji pulang — aku nggak tahu kapan bisa, dan aku nggak mau bohong. Tapi aku bisa telepon tiap Sabtu. Dan akan kutelepon, bahkan kalau kau nggak angkat.`,
+          beat:{ b:`"Tiap Sabtu. Wah, hebat juga kau".` },
+          react:s=> s.contact>=55 ? `...Deal. Akan kuangkat.` : `Ya. Kita lihat.`,
+          coach:`Janji kecil yang pasti kau tepati lebih berharga dari janji besar yang kau sendiri tak yakini. Jujur soal batasanmu juga bentuk penghargaan.` },
+        { icon:"🚪", tag:"Pintu tanpa waktu", cls:"meh", d:{b:+4}, dc:+3, fake:1,
+          text:`Dengar, aku selalu bisa dihubungi. Kirim pesan kapan pun, pasti kubalas.`,
+          beat:{ b:`"Ya. Makasih".` },
+          react:()=>`Baik. Akan kukirim.`,
+          coach:`"Kirim pesan kapan pun" adalah pintu yang takkan diketuk orang dalam keadaan seperti ini. Undangan tanpa waktu sama saja dengan penolakan sopan.` },
+        { icon:"😴", tag:"Ditunda", cls:"bad", d:{b:+14}, dc:0, res:{pat:-1},
+          text:`Nggak tahu, Bohdan. Nggak usah sekarang — kau tidur dulu, nanti kita bicara lagi kalau kepala udah jernih.`,
+          beat:{ b:`"Kepala jernih. Pasti".` },
+          react:()=>`Ya. Ya udah tidur sana. Kau kan di sana udah pagi.`,
+          coach:`Dia menelepon jam tiga dini hari justru karena siang hari dia tak berani. "Nanti kita bicara" berarti "kita takkan bicara".` },
+      ],
+      next:s=> (s.contact>=60 && s.scars.length===0 && s.f.plan) ? "n5you" : null
+    },
+
+    n5you:{
+      target:"b",
+      npc:()=>`(jeda) Dengar... kau sendiri gimana kabarnya? Beneran gimana? Karena aku sudah sejam ngomong terus, dan kau cuma dengerin aku.`,
+      options:[
+        { icon:"🗣", tag:"Jawab sejujurnya", cls:"good", d:{b:-10}, dc:+20,
+          text:`Jujur? Baik dan buruk sekaligus. Di sini ada laut dan pekerjaan yang kucintai. Dan tiap pagi aku baca berita sebelum bangun dari kasur, dan kupendam sendiri — karena di sini nggak ada yang bisa diajak bicara soal itu. Kau orang pertama dalam setahun ini yang kuceritakan hal ini.`,
+          beat:{ b:`pelan: "Nah kan. Kau bilangnya kelapa".` },
+          react:()=>`...Wah. Kukira di sana ringan buatmu. Bodoh aku.`,
+          coach:`Dia baru pertama kali menanyakan soal kamu — itulah pemulihan persahabatan. Menjawab sejujurnya berarti membiarkannya kembali.` },
+        { icon:"🙅", tag:"Menghindar", cls:"bad", d:{b:+8}, dc:-8,
+          text:`Ah, baik semua. Bukan soal aku sekarang percakapan ini.`,
+          beat:{ b:`"Baiklah".` },
+          react:()=>`Baiklah. Ya udah kalau begitu. Aku tutup dulu kayaknya.`,
+          coach:`Dia membuka diri dan bertanya balik — dan kamu meninggalkannya sendirian dalam kerentanannya. Sekarang dia yang berutang, dan kamu kembali jadi "orang yang selalu baik-baik saja".` },
+        { icon:"🤍", tag:"Singkat dan jujur", cls:"good", d:{b:-6}, dc:+10,
+          text:`Baik. Dan malu karena baik. Tapi baik.`,
+          beat:{ b:`"Nggak usah malu. Setidaknya ada yang baik-baik saja".` },
+          react:()=>`Nggak usah malu, dengar. Setidaknya ada yang normal.`,
+          coach:`Singkat, jujur, tanpa menyalahkan diri. Dia tak butuh kamu jadi buruk keadaannya — dia butuh kamu jadi diri sendiri.` },
+      ],
+      next:()=>null
+    }
+  },
+  checkFail:s=>{
+    if(s.pat<=0) return "hangup";
+    if(s.w.b>=88 || s.aggro>=2) return "blowup";
+    return null;
+  },
+  resolve:(s)=>{
+    if(s.contact>=55 && s.scars.length===0 && s.f.plan) return "callback";
+    if(s.contact>=30) return "polite";
+    return "hangup";
+  },
+  endings:{
+    hangup:{ emoji:"🌑", title:"\"Ya udah, tidur\"", cls:"bad",
+      text:`"Ya udah. Tidur sana. Di sana kan udah pagi." Dan nada sambung — sebelum kau sempat menambahkan apa pun.<br><br>Kau berbaring dengan HP di dada. Di luar jendela sudah terang, di bawah sana ada motor dinyalakan, ayam jantan memutuskan sudah waktunya. Bohdan takkan telepon lagi setengah tahun — dan kalau dia telepon, akan mulai dengan cara yang sama: "Gimana kabar kelapamu di sana".<br><br>Dia tak tersinggung. Dia cuma menguji apa hal ini bisa diceritakan padamu. Dan dia dapat jawabannya.` },
+    blowup:{ emoji:"💥", title:"\"Ya sudah, persetan\"", cls:"bad",
+      text:`Kalian berdua bicara berbarengan, sudah bukan lagi soal Seryi atau Bali, tapi soal siapa berutang apa ke siapa. Lalu dia bilang sesuatu yang singkat dan final — dan mematikan telepon.<br><br>Paginya kau akan menulis "maaf". Dia akan kasih like. Itulah hal terburuk dari semuanya.` },
+    polite:{ emoji:"🧱", title:"\"Makasih udah dengerin\"", cls:"meh",
+      text:`Di akhir dia bilang: "Ya udah, makasih udah dengerin." Sopan. Begitulah cara berterima kasih pada kolega yang mengantar pulang.<br><br>Percakapannya tidak hancur, dan itu sudah lumayan. Tapi di antara kalian tetap ada apa yang kau ucapkan malam itu — dan itu takkan hilang, walau tak pernah diucapkan lagi. Lain kali dia akan menelepon orang lain, bukan kamu.` },
+    callback:{ emoji:"🌅", title:"Dia akan telepon balik", cls:"good",
+      text:`Kalian bicara satu jam lagi. Soal Seryi dan refrain-refrainnya yang belum selesai, soal gitar di kelas sembilan, soal listrik yang sering mati, soal kafe yang buka lagi di Kyiv. Dia tertawa dua kali — beneran tertawa.<br><br>Jam setengah lima waktu Kyiv dia bilang: "Ya udah. Aku coba tidur." Dan sambil menutup telepon: "Aku akan telepon balik. Beneran telepon balik, bukan kayak gini."<br><br>Sabtu nanti dia akan angkat teleponnya. Kamu tak mengucapkan satu pun kata yang "benar" soal perang, tak membuktikan atau membela apa pun ke siapa pun. Kamu cuma tak menutup telepon saat dia bicara liar.` },
+  },
+  debrief:`Keterampilan utama percakapan ini adalah <b>menerjemahkan</b>. "Kelapa, bagus" berarti "aku sedih kau nggak ada". "Kau kabur" berarti "nggak ada yang bisa kuajak bicara soal Seryi". Kata-kata liar bukan vonis atau informasi tentang dirimu; itu bentuk keluarnya rasa sakit. Tugasmu adalah mendengar kebutuhan di baliknya, bukan berdebat dengan bentuknya.<br><br>Yang merusak percakapan: adu penderitaan, tagihan donasi, "semangat ya", "ini nggak logis", "nanti kita bicara". Yang menjaganya: menyebut fakta alih-alih terpancing, tetap dalam diam, menyebut rasa bersalah orang yang selamat dengan lantang, batasan tanpa membela diri — dan <b>janji kecil dengan tanggal</b> alih-alih janji besar tanpa tanggal.<br><br>Dan dua hal yang tak ada di cerita-cerita sebelumnya (v5). <b>Kesabaran</b>: orang jam tiga dini hari tak akan tahan banyak salah langkah — percakapan akan langsung berakhir. Dan <b>bekas luka</b>: apa yang diucapkan di malam seperti itu tak terhapus oleh kata-kata benar yang datang belakangan. Kau bisa menyelamatkan percakapan dan tetap tak mendapat akhir terbaik — karena dia sudah terlanjur mendengarnya.`
+});
