@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive Effects — MriyaWorks</title>
+  <meta name="description" content="A camera-driven fluid installation. Your movement paints the wall. Try it in your browser.">
+  <meta property="og:title" content="Interactive Effects — a wall of living paint">
+  <meta property="og:image" content="https://mriyaworks.com/img/og.jpg">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@300;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .stage { position: relative; height: 100vh; min-height: 520px; background: #000; margin-top: 68px; height: calc(100vh - 68px); }
+    .stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .stage-hint { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 2; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; pointer-events: none; }
+    .stage-hint > * { pointer-events: auto; }
+    .stage-hint .tag { background: rgba(0,0,0,.55); backdrop-filter: blur(8px); color: #fff; font-size: .85rem; padding: 8px 14px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+    @media (max-width: 860px) { .grid3 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="logo" href="../" aria-label="MriyaWorks home">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa9ff"/><stop offset=".55" stop-color="#9b7bff"/><stop offset="1" stop-color="#ff8a3d"/></linearGradient></defs><path d="M38 12a21 21 0 1 0 14 34A17 17 0 0 1 38 12z" fill="url(#lm)"/><path d="M44 14l2.4 5.6L52 22l-5.6 2.4L44 30l-2.4-5.6L36 22l5.6-2.4z" fill="#ffc93c"/></svg>
+      <span>Mriya<b>Works</b></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+    <div class="nav-links">
+      <a href="../#games">Games</a>
+      <a href="../#apps">Apps</a>
+      <a href="#about">About the installation</a>
+      <a class="btn btn-primary" href="#contact">Bring it to your venue</a>
+    </div>
+  </div>
+</nav>
+
+<div class="stage">
+  <iframe src="https://fedya1234.github.io/interactive-effects/" title="Interactive Effects live demo" allow="camera; fullscreen; autoplay" allowfullscreen></iframe>
+  <div class="stage-hint">
+    <span class="tag">✦ Touch the screen — or allow the camera and move</span>
+    <a class="tag" href="https://fedya1234.github.io/interactive-effects/" target="_blank" rel="noopener" style="text-decoration:none">Open full screen ↗</a>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap">
+    <span class="eyebrow">Interactive Effects</span>
+    <h2>A wall-sized screen of <span class="grad">living paint</span></h2>
+    <p class="lead">A camera watches the floor in front of it. Your silhouette glows from inside the fluid and your movement drives the colour the way wind drives smoke. No sensors, no suits, no controllers, nothing to learn.</p>
+    <p class="muted" style="max-width:720px">The world changes character every minute — water, smoke, fire, ink, glass, galaxy, mandala — and at the end of the cycle every drop of paint drains together and freezes into a logo, or into a QR code a phone can scan.</p>
+
+    <div class="grid3">
+      <div class="service"><div class="ico">🎯</div><h3>The finale sells it</h3><p>The logo isn't drawn over the artwork — the paint already on screen physically assembles into it and holds. The QR finale hands a visitor a link, a coupon or a signup.</p></div>
+      <div class="service"><div class="ico">💡</div><h3>Cheap to install</h3><p>A webcam, an ordinary computer and a projector or screen. A depth-camera mode exists for dark rooms. Scales to the wall — multi-monitor output driven at 15360×2160.</p></div>
+      <div class="service"><div class="ico">🛠️</div><h3>Yours to author</h3><p>A full visual world editor ships inside the build, and worlds can be shared through the cloud. One-click installers, written manuals, calibration with the arrow keys.</p></div>
+    </div>
+
+    <div class="two">
+      <div class="panel">
+        <span class="eyebrow">Where it belongs</span>
+        <ul class="checks" style="margin-top:6px">
+          <li>Science and children's museums</li>
+          <li>Shopping-mall attractions</li>
+          <li>Festivals and brand activations</li>
+          <li>Corporate lobbies and showrooms</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">Under the hood</span>
+        <p class="muted">Unity 6 with the fluid solved as real-time Navier–Stokes in a fragment shader, so it runs at full wall resolution on ordinary hardware. Body tracking is MediaPipe on a standard webcam. Tracking and rendering are separate processes — if the camera side dies, the fluid keeps living and the tracker comes back by itself.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-card">
+      <span class="eyebrow">Ready for its first installation</span>
+      <h2>Own a room that should come alive?</h2>
+      <p class="lead">We're looking for venue operators, AV integrators and activation agencies — and investment to put the first installations in place.</p>
+      <a class="email-big" data-email href="#">hello</a><br>
+      <span class="event"><span class="pulse"></span>Meet us at <b>IGDX 2026</b> · Bali · 21–23 October</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span data-year></span> MriyaWorks</span>
+    <span><a href="../">Home</a><a data-email href="#">Email</a></span>
+  </div>
+</footer>
+
+<script src="../site.js"></script>
+</body>
+</html>
