@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Danylov;Fedir;;;
+FN:Fedir Danylov
+ORG:MriyaWorks
+TITLE:Founder & CEO
+EMAIL;TYPE=WORK:fedir@mriyaworks.com
+URL:https://mriyaworks.com
+X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/fedir-danylov-abb36a19a/
+END:VCARD
